@@ -45,7 +45,8 @@ def logging_middleware(environ, user):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Specify some parameters.')
-    parser.add_argument('-p', '--port', type=int, default=8000, required=False, help='Specify server port.')
+    parser.add_argument('-p', '--port', type=int, default=8000, required=False, help='Specify server port. '
+                                                                                     'Default: 8000')
     d = vars(parser.parse_args())
 
     logging.basicConfig(level=logging.INFO, filename='wsgi_log.log', format="%(asctime)s %(levelname)s %(message)s")

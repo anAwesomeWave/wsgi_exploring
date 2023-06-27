@@ -1,7 +1,6 @@
 from wsgiref.simple_server import make_server
 from urllib.parse import parse_qs
-
-PORT = 8000
+import argparse
 
 '''
 TODO:   app itself, auth middleware, logger middleware, args
@@ -27,6 +26,10 @@ def auth_middleware(environ):
     return [], '401 Unauthorized'
 
 
-with make_server('', PORT, simple_app) as httpd:
-    print(f'Serving at port {PORT}...')
-    httpd.serve_forever()
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Specify some parameters.')
+    parser.add_argument('-p', '--port', type=int, default=8000, required=False, help='Specify server port.')
+    d = vars(parser.parse_args())
+    with make_server('', d['port'], simple_app) as httpd:
+        print(f'Serving at port {d["port"]}...')
+        httpd.serve_forever()
